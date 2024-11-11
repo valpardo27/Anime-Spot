@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles-login.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="shortcut icon" href="img/AnimeSpot-Icon.ico" type="image/x-icon">
+    <title>Anime Spot - An Anime Recommendation Page</title>
+    <script type="module" src="firebase.js" defer></script>
+</head>
+<body>
+    <div class="container" id="main">
+        <div class="sign-up">
+            <form action="#">
+                <h1>Crear Cuenta</h1>
+
+                <p>usa tu correo electrónico para registrarte</p>
+                <input type="text" name="txt" id="name_sign" placeholder="Nombre" required>
+                <input type="email" name="email" id="email_sign" placeholder="Correo electrónico" required>
+                <input type="password" name="pswd" id="password_sign" placeholder="Contraseña" required>
+                <button type="button" id="submit_sign">Crear Cuenta</button>
+            </form>
+        </div>
+        <div class="sign-in">
+            <form action="#">
+                <h1>Acceder</h1>
+                <p>usa tu cuenta</p>
+                <input type="email" name="email" id="email_log" placeholder="Correo electrónico" required>
+                <input type="password" name="pswd" id="password_log" placeholder="Contraseña" required>
+                <a href="#" class="reset_password" id="reset">¿Olvidaste tu contraseña?</a>
+                <button type="button" id="submit_log">Acceder</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-left">
+                    <h1>Bienvenido de vuelta!</h1>
+                    <p>Para mantenerte conectado con nosotros por favor accede con tu correo personal</p>
+                    <button id="signIn">Acceder</button>
+                </div>
+                <div class="overlay-right">
+                    <h1>Hola, Amigo!</h1>
+                    <p>Ingresa tus datos y empieza a explorar con nosotros</p>
+                    <button id="signUp">Crear Cuenta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const main = document.getElementById('main');
+
+        signUpButton.addEventListener('click', () => {
+            main.classList.add("right-panel-active");
+        });
+        signInButton.addEventListener('click', () => {
+            main.classList.remove("right-panel-active");
+        });
+    </script>
+</body>
+</html>

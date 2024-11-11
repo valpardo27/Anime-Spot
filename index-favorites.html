@@ -1,0 +1,111 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles-favs.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="shortcut icon" href="img/AnimeSpot-Icon.ico" type="image/x-icon">
+    <title>Anime Spot - An Anime Recommendation Page</title>
+    <script type="module" src="user-config.js" defer></script>
+</head>
+<header>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img class="logo" src="img/Logo.png" alt="">
+            </div>
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <li class="menu-list-item" onclick="gotoHome()">Series</li>
+                    <li class="menu-list-item" onclick="gotoMovie()">Películas</li>
+                    <li class="menu-list-item" onclick="gotoTrend()">Tendencias</li>
+                </ul>
+            </div>
+            <div class="profile-container">
+                <img class="profile-picture" src="img/profile.jpg" alt="">
+                <div class="profile-text-container">
+                    <button class="profile-text" id="user_name_display">Perfil <i class="fas fa-caret-down"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#" id="logout">Desconectar</a>
+    
+                    </div>
+                    
+                </div>
+                <div class="toggle">
+                    <i class="fas fa-moon toggle-icon"></i>
+                    <i class="fas fa-sun toggle-icon"></i>
+                    <div class="toggle-ball"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<body>
+    <div class="sidebar">
+        <i class="left-menu-icon fas fa-search" onclick="gotoSearch()"></i>
+        <i class="left-menu-icon fas fa-home" onclick="gotoHome()"></i>
+        <i class="left-menu-icon fas fa-bookmark active" onclick="gotoFavs()"></i>
+    </div>
+    <div class="container">
+        <div class="content-container">
+            <div class="favorites-container">
+                <h1 class="section-title">Tus Favoritos</h1>
+                <div class="favorites-list-wrapper">
+                    <div class="favorites-list" id="favorites-list">
+                        <!-- Los favoritos del usuario se cargarán dinámicamente aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script type="module" src="database.js" defer></script>
+    <script type="module" src="favorites.js" defer></script>
+</body>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="row">
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="index.html">Series</a></li>
+                    <li><a href="index-movies.html">Películas</a></li>
+                    <li><a href="index-trend.html">Tendencias</a></li>
+                    <li><a href="index-search.html">Buscador</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Anime Spot</h4>
+                <ul>
+                    <li><a href="#">Acerca</a></li>
+                    <li><a href="#">Centro de Ayuda</a></li>
+                    <li><a href="#">Términos de uso</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Cuenta</h4>
+                <ul>
+                    <li><a href="index-favorites.html">Favoritos</a></li>
+                    <li><a href="#" id="logout_footer">Desconectar</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Síguenos</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>

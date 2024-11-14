@@ -224,7 +224,7 @@ function obtenerRecomendaciones(favoritos, tipo, recomendacionesContainer) {
     const favoritosParams = favoritos.map(id => `anime_id=${id}`).join("&");
 
     // Llamada a la API de recomendación con los IDs de los favoritos
-    fetch(`http://127.0.0.1:5000/recommendations?${favoritosParams}&top_n=10`)
+    fetch(`https://animespot.eastus2.cloudapp.azure.com/recommendations?${favoritosParams}&top_n=10`)
         .then(response => response.json())
         .then(data => {
             // Filtra las recomendaciones por el tipo de anime

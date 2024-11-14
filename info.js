@@ -182,7 +182,7 @@ onAuthStateChanged(auth, (user) => {
 
 function obtenerRecomendaciones(animeId) {
     console.log("Obteniendo recomendaciones para anime ID:", animeId);
-    fetch(`http://127.0.0.1:5000/recommendations?anime_id=${animeId}&top_n=5`)
+    fetch(`https://animespot.eastus2.cloudapp.azure.com/recommendations?anime_id=${animeId}&top_n=5`)
         .then(response => response.json())
         .then(data => {
             mostrarRecomendaciones(data);

@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
 import { getFirestore, doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-import { getAuth, onAuthStateChanged  } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -50,11 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function mostrarAnimeInfo(animeData) {
-    document.querySelector(".anime-title-text").textContent = animeData.Name;
-    document.querySelector(".type-language").textContent = animeData.Language || "Sub | Dub";
+    // Limpiar y mostrar el título del anime
+    const titleElement = document.querySelector(".anime-title-text");
+    titleElement.innerHTML = ""; // Limpiar contenido
+    titleElement.textContent = animeData.Name || "Título desconocido";
 
+    // Limpiar y mostrar el tipo y lenguaje
+    const typeLanguageElement = document.querySelector(".type-language");
+    typeLanguageElement.innerHTML = ""; // Limpiar contenido
+    typeLanguageElement.textContent = animeData.Language || "Sub | Dub";
+
+    // Limpiar y mostrar estrellas basadas en la calificación
     const starsContainer = document.querySelector(".stars");
-    starsContainer.innerHTML = "";
+    starsContainer.innerHTML = ""; // Limpiar estrellas previas
     const rating = Math.round((animeData.Score || 0) / 2);
     for (let i = 0; i < 5; i++) {
         const star = document.createElement("i");
@@ -62,22 +70,35 @@ function mostrarAnimeInfo(animeData) {
         starsContainer.appendChild(star);
     }
 
+    // Mostrar la calificación numérica
     const scoreText = document.createElement("span");
     scoreText.className = "score-text";
     scoreText.textContent = ` ${animeData.Score || 0}/10`;
     starsContainer.appendChild(scoreText);
 
-    document.querySelector(".text-description p").textContent = animeData.Synopsis;
+    // Limpiar y mostrar la sinopsis
+    const descriptionElement = document.querySelector(".text-description p");
+    descriptionElement.innerHTML = ""; // Limpiar contenido
+    descriptionElement.textContent = animeData.Synopsis || "Sin descripción disponible.";
 
+    // Limpiar y mostrar los géneros
     const genresContainer = document.querySelector(".content-genres");
-    genresContainer.innerHTML = "";
-    animeData.Genres.forEach((genre) => {
-        const genreDiv = document.createElement("div");
-        genreDiv.className = "genre";
-        genreDiv.textContent = genre;
-        genresContainer.appendChild(genreDiv);
-    });
+    genresContainer.innerHTML = ""; // Limpiar géneros previos
+    if (animeData.Genres && animeData.Genres.length > 0) {
+        animeData.Genres.forEach((genre) => {
+            const genreDiv = document.createElement("div");
+            genreDiv.className = "genre";
+            genreDiv.textContent = genre;
+            genresContainer.appendChild(genreDiv);
+        });
+    } else {
+        const noGenresMessage = document.createElement("div");
+        noGenresMessage.className = "no-genres-message";
+        noGenresMessage.textContent = "No hay géneros disponibles.";
+        genresContainer.appendChild(noGenresMessage);
+    }
 
+    // Limpiar y mostrar detalles adicionales en una tabla
     const details = {
         "Tipo": animeData.Type || "Anime",
         "Estudio": animeData.Studios || "Desconocido",
@@ -87,7 +108,7 @@ function mostrarAnimeInfo(animeData) {
     };
 
     const tableContainer = document.querySelector(".show-details-table");
-    tableContainer.innerHTML = "";
+    tableContainer.innerHTML = ""; // Limpiar tabla previa
     for (const key in details) {
         const row = document.createElement("div");
         row.className = "table-row";
@@ -105,8 +126,9 @@ function mostrarAnimeInfo(animeData) {
         tableContainer.appendChild(row);
     }
 
+    // Limpiar y mostrar imagen del anime
     const animeImg = document.querySelector(".anime-img");
-    animeImg.src = animeData.Image_URL;
+    animeImg.src = animeData.Image_URL; // Imagen por defecto si no hay imagen
     animeImg.alt = animeData.Name;
 
 }
@@ -145,7 +167,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         const animeID = localStorage.getItem("animeID");
         const favoriteIcon = document.getElementById("favorite-icon");
-        
+
         const userDocRef = doc(firestoreDB, "usuarios", user.uid);
         getDoc(userDocRef).then((userDoc) => {
             const userData = userDoc.data();

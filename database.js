@@ -204,7 +204,7 @@ function obtenerFavoritosYRecomendaciones(userId) {
                     tipo = "Movie";
                 } 
                 
-                obtenerRecomendaciones(favoritos, tipo); // Pasamos el tipo aquí
+                obtenerRecomendaciones(favoritos, tipo, recomendacionesContainer); // Pasamos el tipo aquí
             } else {
                 console.log("No hay favoritos para el usuario.");
                 mostrarMensajeNoFavoritos(recomendacionesContainer);
@@ -219,7 +219,7 @@ function obtenerFavoritosYRecomendaciones(userId) {
     });
 }
 
-function obtenerRecomendaciones(favoritos, tipo) {
+function obtenerRecomendaciones(favoritos, tipo, recomendacionesContainer) {
     // Convierte los IDs de favoritos en una cadena de parámetros separados
     const favoritosParams = favoritos.map(id => `anime_id=${id}`).join("&");
 
@@ -229,10 +229,23 @@ function obtenerRecomendaciones(favoritos, tipo) {
         .then(data => {
             // Filtra las recomendaciones por el tipo de anime
             const recomendacionesFiltradas = data.filter(anime => anime.Type.toLowerCase() === tipo.toLowerCase());
-            mostrarRecomendaciones(recomendacionesFiltradas);
+            // Si no hay recomendaciones para el tipo especificado, muestra un mensaje
+            if (recomendacionesFiltradas.length === 0) {
+                mostrarMensajeNoTipo(recomendacionesContainer, tipo); // Mostrar mensaje específico de tipo
+            } else {
+                mostrarRecomendaciones(recomendacionesFiltradas);
+            }
         })
         .catch(error => console.error("Error obteniendo recomendaciones:", error));
 }
+
+function mostrarMensajeNoTipo(container, tipo) {
+    const noTipoMessage = document.createElement("p");
+    noTipoMessage.className = "no-tipo-message";
+    noTipoMessage.textContent = `No hay animes de tipo ${tipo} en tus favoritos.`;
+    container.appendChild(noTipoMessage);
+}
+
 function mostrarRecomendaciones(recommendations) {
     const movieListContainer = document.querySelector(".recomendaciones-list .movie-list-wrapper");
     movieListContainer.innerHTML = ""; // Limpiar el contenido actual

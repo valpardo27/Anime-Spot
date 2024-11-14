@@ -242,7 +242,7 @@ function obtenerRecomendaciones(favoritos, tipo, recomendacionesContainer) {
 function mostrarMensajeNoTipo(container, tipo) {
     const noTipoMessage = document.createElement("p");
     noTipoMessage.className = "no-tipo-message";
-    noTipoMessage.textContent = `No hay animes de tipo ${tipo} en tus favoritos.`;
+    noTipoMessage.textContent = `No hay recomendaciones de tipo ${tipo}.`;
     container.appendChild(noTipoMessage);
 }
 
